@@ -1,0 +1,57 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id "io.gatling.gradle" version "3.7.6.2"
+}
+
+description = 'monkey-api'
+group = 'io.github.jass2125'
+version = '1.0.0-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation('org.junit.jupiter:junit-jupiter-engine:5.6.2')
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'com.h2database:h2'
+    testCompile 'io.gatling.highcharts:gatling-charts-highcharts:3.7.6'
+    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'de.codecentric:chaos-monkey-spring-boot:2.6.1'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    runtimeOnly 'org.postgresql:postgresql'
+    implementation 'org.springframework.data:spring-data-redis:2.7.0'
+    implementation 'io.lettuce:lettuce-core:6.1.9.RELEASE'
+    compile "io.github.resilience4j:resilience4j-spring-boot2:1.7.1"
+    compile('org.springframework.boot:spring-boot-starter-aop')
+    implementation 'de.codecentric:spring-boot-admin-starter-client:2.4.1'
+
+}
+
+test {
+    useJUnitPlatform()
+}
+
+gatling {
+    // WARNING: options below only work when logback config file isn't provided
+    logLevel = 'INFO' // logback root level
+    logHttp = 'ALL' // set to 'ALL' for all HTTP traffic in TRACE, 'FAILURES' for failed HTTP traffic in DEBUG
+    simulations = {
+        include "**/tests/*Simulation.scala"
+    }
+}
+
+sourceSets {
+    gatling {
+        scala.srcDir "src/gatling/scala"
+        resources.srcDir "src/gatling/resources"
+    }
+}
