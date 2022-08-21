@@ -65,7 +65,7 @@ public class PersonController {
     @GetMapping("/external-api")
     public AddressResponse getExternalApi() {
         log.info("buscando external");
-        return this.otherMicroserviceComponent.fetchData();
+        return this.service.fetchData();
     }
 
 }

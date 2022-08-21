@@ -33,7 +33,7 @@ dependencies {
     compile "io.github.resilience4j:resilience4j-spring-boot2:1.7.1"
     compile('org.springframework.boot:spring-boot-starter-aop')
     implementation 'de.codecentric:spring-boot-admin-starter-client:2.4.1'
-
+    implementation 'org.pitest:pitest-parent:1.1.10'
 }
 
 test {

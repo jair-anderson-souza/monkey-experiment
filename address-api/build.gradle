@@ -2,10 +2,9 @@ plugins {
     id 'org.springframework.boot' version '2.7.2'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
-    id "io.gatling.gradle" version "3.7.6.2"
 }
 
-description = 'monkey-api'
+description = 'address-api'
 group = 'io.github.jass2125'
 version = '1.0.0-SNAPSHOT'
 sourceCompatibility = '11'
@@ -33,18 +32,3 @@ test {
     useJUnitPlatform()
 }
 
-gatling {
-    // WARNING: options below only work when logback config file isn't provided
-    logLevel = 'INFO' // logback root level
-    logHttp = 'ALL' // set to 'ALL' for all HTTP traffic in TRACE, 'FAILURES' for failed HTTP traffic in DEBUG
-    simulations = {
-        include "**/tests/*Simulation.scala"
-    }
-}
-
-sourceSets {
-    gatling {
-        scala.srcDir "src/gatling/scala"
-        resources.srcDir "src/gatling/resources"
-    }
-}

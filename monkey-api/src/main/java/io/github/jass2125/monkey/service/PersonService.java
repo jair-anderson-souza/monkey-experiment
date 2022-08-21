@@ -1,6 +1,7 @@
 package io.github.jass2125.monkey.service;
 
 import io.github.jass2125.monkey.address.component.OtherMicroserviceComponent;
+import io.github.jass2125.monkey.dto.AddressResponse;
 import io.github.jass2125.monkey.model.Person;
 import io.github.jass2125.monkey.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +24,6 @@ public class PersonService {
     @Autowired
     private OtherMicroserviceComponent otherMicroserviceComponent;
 
-    private List<Person> fallback = List.of();
-
     @Cacheable(value = "persons")
     public List<Person> getAll(Pageable pageable) {
         return this.personRepository.findAll();
@@ -43,5 +42,9 @@ public class PersonService {
     @CacheEvict(cacheNames = "persons", allEntries = true)
     public Person save(Person person) {
         return this.personRepository.save(person);
+    }
+
+    public AddressResponse fetchData() {
+        return otherMicroserviceComponent.fetchData();
     }
 }
